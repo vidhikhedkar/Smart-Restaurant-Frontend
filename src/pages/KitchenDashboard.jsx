@@ -1,51 +1,92 @@
-import { Table, Select } from "antd";
 import { useEffect, useState } from "react";
+import { message } from "antd";
+import Layout from "../components/layout/Layout";
 import API from "../api/api";
+import OrderCard from "../components/order/OrderCard";
+import socket from "../utils/socket";
 
 const KitchenDashboard = () => {
-  const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-  const fetchOrders = async () => {
-    const res = await API.get("/orders");
-    setOrders(res.data);
-  };
+    // Fetch all orders
+    const fetchOrders = async () => {
+        try {
+            setLoading(true);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+            const res = await API.get("/orders");
+            setOrders(res.data);
 
-  const updateStatus = async (id, status) => {
-    await API.put(`/orders/${id}`, { status });
-    setOrders(orders.map(o => o._id === id ? { ...o, status } : o));
-  };
+        } catch (err) {
+            message.error("Failed to fetch orders");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Kitchen Dashboard</h1>
-      <Table
-        dataSource={orders}
-        rowKey="_id"
-        columns={[
-          { title: "Table", dataIndex: "tableNumber" },
-          { title: "Total", dataIndex: "totalAmount" },
-          {
-            title: "Status",
-            render: (_, record) => (
-              <Select
-                value={record.status}
-                onChange={(val) => updateStatus(record._id, val)}
-              >
-                <Select.Option value="pending">Pending</Select.Option>
-                <Select.Option value="preparing">Preparing</Select.Option>
-                <Select.Option value="ready">Ready</Select.Option>
-                <Select.Option value="served">Served</Select.Option>
-              </Select>
-            )
-          }
-        ]}
-      />
-    </div>
-  );
+    useEffect(() => {
+        fetchOrders();
+
+        socket.on("orderCreated", (order) => {
+            setOrders((prev) => [order, ...prev]);
+        });
+
+        socket.on("orderStatusUpdated", (updated) => {
+            setOrders((prev) =>
+                prev.map((o) =>
+                    o._id === updated._id ? updated : o
+                )
+            );
+        });
+
+        return () => {
+            socket.off("orderCreated");
+            socket.off("orderStatusUpdated");
+        };
+    }, []);
+
+    // Update order status
+    const updateStatus = async (id, status) => {
+        try {
+            await API.put(`/orders/${id}`, { status });
+
+            setOrders((prev) =>
+                prev.map((order) =>
+                    order._id === id
+                        ? { ...order, status }
+                        : order
+                )
+            );
+
+            message.success(`Order marked as ${status}`);
+        } catch (err) {
+            message.error("Failed to update order");
+        }
+    };
+
+    return (
+        <Layout>
+            <h1 className="text-3xl font-bold mb-6">
+                Kitchen Dashboard
+            </h1>
+
+            {loading ? (
+                <p>Loading orders...</p>
+            ) : orders.length === 0 ? (
+                <p>No orders yet</p>
+            ) : (
+                <div className="grid md:grid-cols-2 gap-6">
+                    {orders.map((order) => (
+                        <OrderCard
+                            key={order._id}
+                            order={order}
+                            onStatusChange={updateStatus}
+                        />
+                    ))}
+                </div>
+            )}
+        </Layout>
+    );
 };
 
 export default KitchenDashboard;
