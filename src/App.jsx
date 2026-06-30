@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import CartDrawer from "./components/cart/CartDrawer"; // Make sure path matches your directory setup
 
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
@@ -21,30 +22,28 @@ const App = () => {
 
         {/* ALWAYS VISIBLE */}
         <Navbar />
-
+        <CartDrawer />
         {/* PAGE CONTENT */}
-        <div className="min-h-[80vh]">
-          <Routes>
+        <Routes>
 
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/order/:id" element={<OrderTracking />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/order/:id" element={<OrderTracking />} />
 
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <KitchenDashboard />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <KitchenDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
 
-          </Routes>
-        </div>
+        </Routes>
 
         {/* ALWAYS VISIBLE */}
         <Footer />

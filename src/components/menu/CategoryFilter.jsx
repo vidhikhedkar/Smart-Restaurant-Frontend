@@ -1,22 +1,77 @@
+import {
+    FaUtensils,
+    FaPizzaSlice,
+    FaBurger,
+    FaBowlFood,
+    FaGlassWater,
+    FaCakeCandles
+} from "react-icons/fa6";
+
 const CategoryFilter = ({
     categories,
     selectedCategory,
     setSelectedCategory,
 }) => {
+    // Helper to map category names to matching modern icons
+    const getCategoryIcon = (category) => {
+        switch (category.toLowerCase()) {
+            case "all":
+                return <FaUtensils className="text-sm" />;
+            case "pizza":
+                return <FaPizzaSlice className="text-sm" />;
+            case "burger":
+                return <FaBurger className="text-sm" />;
+            case "pasta":
+                return <FaBowlFood className="text-sm" />;
+            case "drinks":
+                return <FaGlassWater className="text-sm" />;
+            case "dessert":
+                return <FaCakeCandles className="text-sm" />;
+            default:
+                return <FaUtensils className="text-sm" />;
+        }
+    };
+
     return (
-        <div className="flex flex-wrap gap-3 mb-8">
-            {categories.map((category) => (
-                <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-5 py-2 rounded-full border transition-all duration-200 ${selectedCategory === category
-                            ? "bg-orange-500 text-white border-orange-500"
-                            : "bg-white text-gray-700 border-gray-300 hover:bg-orange-100 hover:border-orange-400"
-                        }`}
-                >
-                    {category}
-                </button>
-            ))}
+        <div className="w-full">
+            {/* Scrollable container that hides the default scrollbar on modern browsers */}
+            <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory">
+                {categories.map((category) => {
+                    const isSelected = selectedCategory === category;
+
+                    return (
+                        <button
+                            key={category}
+                            onClick={() => setSelectedCategory(category)}
+                            className={`
+                flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-semibold
+                whitespace-nowrap transition-all duration-200 snap-center group
+                hover:-translate-y-0.5 active:scale-95 border
+                ${isSelected
+                                    ? "bg-linear-to-r from-orange-500 to-amber-500 text-white border-transparent shadow-md shadow-orange-500/20"
+                                    : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-100"
+                                }
+              `}
+                        >
+                            <span className={`transition-colors duration-200 ${isSelected ? "text-white" : "text-slate-400 group-hover:text-orange-500"}`}>
+                                {getCategoryIcon(category)}
+                            </span>
+                            <span>{category}</span>
+                        </button>
+                    );
+                })}
+            </div>
+
+            {/* Custom scrollbar injection stylesheet reset */}
+            <style>{`
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
         </div>
     );
 };
