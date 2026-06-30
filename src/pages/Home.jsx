@@ -16,16 +16,22 @@ const Home = () => {
     const testimonials = [
         { name: "Sarah M.", role: "Food Blogger", review: "The QR code ordering was seamless! Food arrived roaring hot in less than 15 minutes.", rating: 5 },
         { name: "David K.", role: "Regular Customer", review: "Live tracking inside the restaurant is a game changer. Kids loved watching the preparation stages.", rating: 5 },
+        {
+            name: "Rahul R.",
+            role: "Regular Customer",
+            review: "The ordering process was quick and hassle-free. The food was delicious, and the live order tracking made the experience even better.",
+            rating: 5
+        }
     ];
 
     return (
         <Layout>
-            <div className="max-w-6xl mx-auto px-4 py-12 sm:py-20">
+            <div className="container py-12 ">
 
                 {/* 1. Hero Section */}
-                <div className="text-center bg-linear-to-b from-orange-50/50 to-transparent rounded-3xl p-8 sm:p-12 border border-orange-100/50">
+                <div className="text-center bg-linear-to-b from-orange-100/50 to-transparent rounded-3xl p-8 sm:p-12 border border-orange-100">
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-800">
-                        Welcome to <span className="text-orange-500 bg-linear-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Smart Restaurant</span>
+                        Welcome to <span className="text-orange-500 bg-linear-to-r from-orange-500 to-amber-500 bg-clip-text">Smart Restaurant</span>
                     </h1>
 
                     <p className="mt-6 text-slate-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
@@ -169,7 +175,7 @@ const Home = () => {
                 </div>
 
                 {/* 5. How It Works Section */}
-                <div className="mt-28 bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-100">
+                <div className="mt-28 bg-slate-100 rounded-3xl p-8 sm:p-12 border border-slate-300">
                     <div className="text-center mb-12">
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-800">How It Works</h2>
                         <p className="text-slate-500 mt-2">Three simple steps to delicious food.</p>
@@ -209,7 +215,7 @@ const Home = () => {
                         <p className="text-slate-500 mt-2">Real feedback from recent smart-diners.</p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                         {testimonials.map((t, index) => (
                             <div key={index} className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col justify-between">
                                 <div>

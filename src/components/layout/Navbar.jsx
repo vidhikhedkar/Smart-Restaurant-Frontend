@@ -58,15 +58,15 @@ const Navbar = () => {
 
         {/* Primary Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 h-full">
-          <Link className={linkStyle("/")} to="/">
+          {/* <Link className={linkStyle("/")} to="/">
             <FaHome className="text-base" />
             <span>Home</span>
-          </Link>
+          </Link> */}
 
-          <Link className={linkStyle("/menu")} to="/menu">
+          {/* <Link className={linkStyle("/menu")} to="/menu">
             <FaUtensils className="text-xs" />
             <span>Menu</span>
-          </Link>
+          </Link> */}
 
           {token && (
             <Link className={linkStyle("/dashboard")} to="/dashboard">
