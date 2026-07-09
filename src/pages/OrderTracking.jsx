@@ -3,27 +3,25 @@ import { useParams } from "react-router-dom";
 import { message, Card, Divider } from "antd";
 import Layout from "../components/layout/Layout";
 import API from "../api/api";
-
 import OrderStatus from "../components/order/OrderStatus";
 import StatusTimeline from "../components/order/StatusTimeline";
-
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:8080");
+
 
 const OrderTracking = () => {
     const { id } = useParams();
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(false);
 
+
     // Fetch order details
     const fetchOrder = async () => {
         try {
             setLoading(true);
-
             const res = await API.get(`/orders/${id}`);
             setOrder(res.data);
-
         } catch (err) {
             message.error("Failed to load order");
         } finally {
@@ -31,24 +29,22 @@ const OrderTracking = () => {
         }
     };
 
+
     useEffect(() => {
         fetchOrder();
-
-        // Live updates using Socket.IO
         socket.on("orderStatusUpdated", (updated) => {
             if (updated._id === id) {
                 setOrder(updated);
             }
         });
-
         socket.on("orderCreated", (newOrder) => {
             console.log("New order:", newOrder);
         });
-
         return () => {
             socket.off("orderStatusUpdated");
         };
     }, [id]);
+
 
     if (loading || !order) {
         return (
@@ -61,7 +57,6 @@ const OrderTracking = () => {
     return (
         <Layout>
             <div className="max-w-2xl mx-auto">
-
                 <Card className="shadow-md">
                     <h1 className="text-2xl font-bold mb-4">
                         Order #{order._id}
@@ -77,15 +72,12 @@ const OrderTracking = () => {
 
                     <Divider />
 
-                    {/* Status */}
                     <div className="mt-4">
                         <OrderStatus status={order.status} />
                     </div>
 
-                    {/* Timeline */}
                     <StatusTimeline status={order.status} />
                 </Card>
-
             </div>
         </Layout>
     );

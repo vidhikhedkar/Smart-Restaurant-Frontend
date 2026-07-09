@@ -4,8 +4,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false); // <-- FIXED: Added missing state
-
+  const [isCartOpen, setIsCartOpen] = useState(false); 
   const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
@@ -42,8 +41,8 @@ export const CartProvider = ({ children }) => {
         setCart,
         totalItems,
         totalPrice,
-        isCartOpen,        // <-- FIXED: Passing inside context
-        setIsCartOpen,     // <-- FIXED: Passing inside context
+        isCartOpen,        
+        setIsCartOpen,   
         addToCart,
         removeFromCart,
         increaseQty,

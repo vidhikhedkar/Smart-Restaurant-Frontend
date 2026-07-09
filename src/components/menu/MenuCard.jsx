@@ -8,7 +8,6 @@ const { Meta } = Card;
 const MenuCard = ({ item }) => {
     const { addToCart } = useCart();
 
-    // Collection of verified production-ready food images from Unsplash
     const fallbackImages = {
         pizza: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop",
         burger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop",
@@ -20,10 +19,8 @@ const MenuCard = ({ item }) => {
 
     const categoryKey = item.category?.toLowerCase() || "food";
 
-    // STUBNESS CHECK: Verify if item.image exists, is a string, and looks like a valid path/URL
     const hasValidImage = item.image && typeof item.image === "string" && item.image.trim().length > 0 && !item.image.includes("placeholder");
     
-    // Choose the verified live photo if database string is empty/broken
     const displayImage = hasValidImage ? item.image : (fallbackImages[categoryKey] || fallbackImages.food);
 
     return (
@@ -37,7 +34,6 @@ const MenuCard = ({ item }) => {
                         alt={item.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
-                        // Safe failure escape: if the backend url fails to load live, fallback immediately to an online placeholder
                         onError={(e) => {
                             e.target.onerror = null; 
                             e.target.src = fallbackImages[categoryKey] || fallbackImages.food;

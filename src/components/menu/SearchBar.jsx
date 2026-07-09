@@ -3,19 +3,17 @@ import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
-  // Use local state to handle immediate user typing seamlessly without UI lag
   const [localValue, setLocalValue] = useState(searchTerm);
 
-  // Debounce logic: Updates parent state 300ms after the user stops typing
+  
   useEffect(() => {
     const handler = setTimeout(() => {
       setSearchTerm(localValue);
     }, 300);
-
     return () => clearTimeout(handler);
   }, [localValue, setSearchTerm]);
 
-  // Sync local state if parent state changes externally (e.g., clearing filters)
+
   useEffect(() => {
     setLocalValue(searchTerm);
   }, [searchTerm]);
@@ -47,7 +45,6 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
         }}
       />
 
-      {/* Scoped input control styles */}
       <style>{`
         .custom-search-input:hover,
         .custom-search-input:focus,

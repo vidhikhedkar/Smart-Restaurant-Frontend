@@ -3,10 +3,10 @@ import Layout from "../components/layout/Layout";
 import API from "../api/api";
 import { Spin, Alert, Empty } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-
 import SearchBar from "../components/menu/SearchBar";
 import CategoryFilter from "../components/menu/CategoryFilter";
 import MenuGrid from "../components/menu/MenuGrid";
+
 
 const Menu = () => {
     const [menu, setMenu] = useState([]);
@@ -14,6 +14,7 @@ const Menu = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+
 
     const categories = [
         "All",
@@ -24,7 +25,7 @@ const Menu = () => {
         "Dessert",
     ];
 
-    // Fetch menu from backend
+
     useEffect(() => {
         const fetchMenu = async () => {
             try {
@@ -39,9 +40,9 @@ const Menu = () => {
                 setLoading(false);
             }
         };
-
         fetchMenu();
     }, []);
+
 
     // Filtering logic
     const filteredMenu = menu.filter((item) => {
@@ -56,11 +57,10 @@ const Menu = () => {
         return matchesCategory && matchesSearch;
     });
 
+
     return (
         <Layout>
             <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
-
-                {/* Header & Item Counter Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 border-b border-slate-100 pb-6">
                     <div>
                         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-800">
@@ -77,7 +77,6 @@ const Menu = () => {
                     )}
                 </div>
 
-                {/* Filter Controls Wrapper */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6 mb-10 space-y-6 transition-all">
                     <div className="max-w-md">
                         <SearchBar
@@ -94,7 +93,6 @@ const Menu = () => {
                     </div>
                 </div>
 
-                {/* Dynamic Context States (Loading / Error / Empty / Content Grid) */}
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-20 gap-4">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 40, color: '#f97316' }} spin />} />

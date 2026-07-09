@@ -1,18 +1,7 @@
-import {
-    FaUtensils,
-    FaPizzaSlice,
-    FaBurger,
-    FaBowlFood,
-    FaGlassWater,
-    FaCakeCandles
-} from "react-icons/fa6";
+import {FaUtensils,FaPizzaSlice,FaBurger,FaBowlFood,FaGlassWater,FaCakeCandles} from "react-icons/fa6";
 
-const CategoryFilter = ({
-    categories,
-    selectedCategory,
-    setSelectedCategory,
-}) => {
-    // Helper to map category names to matching modern icons
+const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory, }) => {
+
     const getCategoryIcon = (category) => {
         switch (category.toLowerCase()) {
             case "all":
@@ -32,26 +21,21 @@ const CategoryFilter = ({
         }
     };
 
+
     return (
         <div className="w-full">
-            {/* Scrollable container that hides the default scrollbar on modern browsers */}
             <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory">
                 {categories.map((category) => {
                     const isSelected = selectedCategory === category;
-
                     return (
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`
-                flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-semibold
-                whitespace-nowrap transition-all duration-200 snap-center group
-                hover:-translate-y-0.5 active:scale-95 border
-                ${isSelected
+                            className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all duration-200 snap-center group hover:-translate-y-0.5 active:scale-95 border
+                             ${isSelected
                                     ? "bg-linear-to-r from-orange-500 to-amber-500 text-white border-transparent shadow-md shadow-orange-500/20"
                                     : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-100"
-                                }
-              `}
+                                }  `}
                         >
                             <span className={`transition-colors duration-200 ${isSelected ? "text-white" : "text-slate-400 group-hover:text-orange-500"}`}>
                                 {getCategoryIcon(category)}
@@ -62,7 +46,6 @@ const CategoryFilter = ({
                 })}
             </div>
 
-            {/* Custom scrollbar injection stylesheet reset */}
             <style>{`
         .scrollbar-none::-webkit-scrollbar {
           display: none;

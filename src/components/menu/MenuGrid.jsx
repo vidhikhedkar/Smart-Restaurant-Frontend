@@ -16,7 +16,6 @@ const MenuGrid = ({ menuItems }) => {
 
     return (
         <div>
-            {/* Responsive unified layout column card placement matrix layout */}
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {menuItems.map((item, index) => (
                     <div
@@ -32,7 +31,7 @@ const MenuGrid = ({ menuItems }) => {
                 ))}
             </div>
 
-            {/* Cascading frame animations */}
+
             <style>{`
         @keyframes cardReveal {
           from {

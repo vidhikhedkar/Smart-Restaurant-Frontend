@@ -1,17 +1,10 @@
 import { Card, Button, Divider, Tooltip } from "antd";
-import {
-    PlayCircleOutlined,
-    CheckCircleOutlined,
-    SendOutlined,
-    ClockCircleOutlined,
-    RollbackOutlined
-} from "@ant-design/icons";
+import { PlayCircleOutlined, CheckCircleOutlined, SendOutlined, ClockCircleOutlined, RollbackOutlined } from "@ant-design/icons";
 import OrderStatus from "./OrderStatus";
 
 const OrderCard = ({ order, onStatusChange }) => {
     const statusLower = order.status?.toLowerCase();
 
-    // Helper formatting for currency
     const formatCurrency = (amount) => `₹${Number(amount).toFixed(2)}`;
 
     return (
@@ -32,7 +25,6 @@ const OrderCard = ({ order, onStatusChange }) => {
                 </div>
             }
         >
-            {/* Items List Wrapper */}
             <div className="divide-y divide-slate-50 space-y-2.5">
                 {order.items.map((item, index) => (
                     <div
@@ -40,7 +32,7 @@ const OrderCard = ({ order, onStatusChange }) => {
                         className="flex justify-between items-center text-sm pt-2.5 first:pt-0"
                     >
                         <div className="flex items-center gap-2">
-                            <span className="inline-flex items-center justify-center bg-slate-100 text-slate-600 font-bold text-xs px-2 py-0.5 rounded-md min-w-[24px]">
+                            <span className="inline-flex items-center justify-center bg-slate-100 text-slate-600 font-bold text-xs px-2 py-0.5 rounded-md min-w-6">
                                 {item.quantity}x
                             </span>
                             <span className="font-medium text-slate-700">{item.name}</span>
@@ -54,7 +46,6 @@ const OrderCard = ({ order, onStatusChange }) => {
 
             <Divider className="my-4 border-slate-100" />
 
-            {/* Pricing Summary */}
             <div className="flex justify-between items-center">
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Amount</span>
                 <span className="text-xl font-black text-slate-800">
@@ -62,11 +53,8 @@ const OrderCard = ({ order, onStatusChange }) => {
                 </span>
             </div>
 
-            {/* Dynamic Workflow-Driven Context Actions */}
             {onStatusChange && (
                 <div className="mt-5 flex items-center gap-2 flex-wrap">
-
-                    {/* Pending State Button Group */}
                     {statusLower === "pending" && (
                         <Button
                             type="primary"
@@ -79,7 +67,6 @@ const OrderCard = ({ order, onStatusChange }) => {
                         </Button>
                     )}
 
-                    {/* Preparing State Button Group */}
                     {statusLower === "preparing" && (
                         <Button
                             type="primary"
@@ -92,7 +79,6 @@ const OrderCard = ({ order, onStatusChange }) => {
                         </Button>
                     )}
 
-                    {/* Ready State Button Group */}
                     {statusLower === "ready" && (
                         <Button
                             type="primary"
@@ -105,7 +91,6 @@ const OrderCard = ({ order, onStatusChange }) => {
                         </Button>
                     )}
 
-                    {/* Fallback Rollback action for quick corrections */}
                     {statusLower !== "pending" && statusLower !== "served" && (
                         <Tooltip title="Move order back a step">
                             <Button
@@ -125,10 +110,9 @@ const OrderCard = ({ order, onStatusChange }) => {
 
                     {statusLower === "served" && (
                         <div className="w-full bg-emerald-50 text-emerald-600 text-center font-bold text-xs py-2 rounded-xl border border-emerald-100">
-                            ✓ Order Delivered Successfully
+                             Order Delivered Successfully
                         </div>
                     )}
-
                 </div>
             )}
         </Card>

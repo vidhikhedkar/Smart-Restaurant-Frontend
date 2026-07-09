@@ -5,18 +5,17 @@ import { useCart } from "../../context/CartContext";
 const CartSummary = ({ tableNumber, setTableNumber }) => {
     const { totalPrice } = useCart();
 
-    // Financial layout conversions
     const gstRate = 0.05;
     const calculatedGst = Number((totalPrice * gstRate).toFixed(2));
     const grandTotal = Number((totalPrice + calculatedGst).toFixed(2));
 
+    
     return (
         <div className="w-full bg-transparent">
             <h3 className="text-base font-bold text-slate-800 mb-4">
                 Bill Details
             </h3>
 
-            {/* Bill Breakdown Matrix */}
             <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm">
                     <span className="text-slate-500 font-medium">Item Subtotal</span>
@@ -44,7 +43,6 @@ const CartSummary = ({ tableNumber, setTableNumber }) => {
                 </div>
             </div>
 
-            {/* Interactive Table Number Allocation Form */}
             <div className="mt-6 p-4 bg-white border border-slate-100 rounded-xl flex items-center justify-between gap-4 shadow-sm">
                 <div className="flex flex-col">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -75,7 +73,6 @@ const CartSummary = ({ tableNumber, setTableNumber }) => {
                 />
             </div>
 
-            {/* Global CSS Injector to polish Ant Input controls */}
             <style>{`
         .custom-table-input:hover,
         .custom-table-input-focused,

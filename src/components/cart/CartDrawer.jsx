@@ -13,16 +13,15 @@ const CartDrawer = () => {
 
   const { cart, totalItems, clearCart, isCartOpen, setIsCartOpen, totalPrice } = useCart();
 
+
   const placeOrder = async () => {
     try {
       setLoading(true);
-      
       const gstRate = 0.05;
       const calculatedGst = Number((totalPrice * gstRate).toFixed(2));
       const grandTotal = Number((totalPrice + calculatedGst).toFixed(2));
-
       const order = {
-        tableNumber: 1, 
+        tableNumber: 1,
         items: cart.map((i) => ({
           itemId: i._id,
           name: i.name,
@@ -33,11 +32,9 @@ const CartDrawer = () => {
       };
 
       const res = await API.post("/orders", order);
-      
-      clearCart(); 
-      setIsCartOpen(false); 
+      clearCart();
+      setIsCartOpen(false);
       message.success("Order placed successfully! Sending to kitchen...");
-      
       navigate(`/order/${res.data._id}`);
     } catch (err) {
       console.error("Error processing order:", err);
@@ -47,9 +44,9 @@ const CartDrawer = () => {
     }
   };
 
+
   return (
     <>
-      {/* Floating Sticky Trigger */}
       {totalItems > 0 && (
         <Button
           type="primary"
@@ -68,14 +65,14 @@ const CartDrawer = () => {
             boxShadow: '0 10px 25px -5px rgba(249, 115, 22, 0.4)'
           }}
         >
-          View Cart 
+          View Cart
           <span className="bg-white text-orange-500 rounded-full px-2 py-0.5 text-xs font-bold ml-1.5 min-w-5 text-center shadow-inner">
             {totalItems}
           </span>
         </Button>
       )}
 
-      {/* Sidemenu Sheet Drawer */}
+
       <Drawer
         title={
           <div className="flex items-center gap-2">
@@ -86,10 +83,9 @@ const CartDrawer = () => {
           </div>
         }
         placement="right"
-        width={window.innerWidth < 480 ? "100%" : 420} 
+        width={window.innerWidth < 480 ? "100%" : 420}
         open={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        /* FIXED: Replaced deprecated bodyStyle with styles structure */
         styles={{
           body: {
             display: 'flex',
@@ -100,29 +96,27 @@ const CartDrawer = () => {
       >
         {cart.length === 0 ? (
           <div className="flex-1 flex items-center justify-center p-8">
-            <Empty 
+            <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
                 <div className="text-center">
                   <p className="text-slate-700 font-semibold text-base">Your cart is empty</p>
                   <p className="text-slate-400 text-xs mt-1">Browse the menu to pick your favorite dishes.</p>
                 </div>
-              } 
+              }
             />
           </div>
         ) : (
           <>
-            {/* Scrollable Contents Block */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
               {cart.map((item) => (
                 <CartItem key={item._id} item={item} />
               ))}
             </div>
 
-            {/* Sticky Bottom Summary Footer Interaction Card */}
             <div className="border-t border-slate-100 bg-slate-50/70 backdrop-blur-sm p-6 sticky bottom-0 z-10 shadow-[0_-8px_24px_rgba(0,0,0,0.02)]">
               <CartSummary />
-              
+
               <Button
                 type="primary"
                 size="large"

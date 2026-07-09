@@ -6,11 +6,11 @@ import API from "../api/api";
 import OrderCard from "../components/order/OrderCard";
 import socket from "../utils/socket";
 
+
 const KitchenDashboard = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Fetch all active orders
     const fetchOrders = async () => {
         try {
             setLoading(true);
@@ -24,37 +24,33 @@ const KitchenDashboard = () => {
         }
     };
 
+
     useEffect(() => {
         fetchOrders();
-
         socket.on("orderCreated", (order) => {
             setOrders((prev) => [order, ...prev]);
             message.info(`New Order Placed! Table #${order.tableNumber || 'N/A'}`);
         });
-
         socket.on("orderStatusUpdated", (updated) => {
             setOrders((prev) =>
                 prev.map((o) => (o._id === updated._id ? updated : o))
             );
         });
-
         return () => {
             socket.off("orderCreated");
             socket.off("orderStatusUpdated");
         };
     }, []);
 
-    // Update order status workflow
+
     const updateStatus = async (id, status) => {
         try {
             await API.put(`/orders/${id}`, { status });
-
             setOrders((prev) =>
                 prev.map((order) =>
                     order._id === id ? { ...order, status } : order
                 )
             );
-
             message.success(`Order status advanced to: ${status}`);
         } catch (err) {
             console.error(err);
@@ -62,7 +58,6 @@ const KitchenDashboard = () => {
         }
     };
 
-    // Split out arrays based on real-time kitchen processing state
     const pendingOrders = orders.filter((o) => o.status?.toLowerCase() === "pending");
     const preparingOrders = orders.filter((o) => o.status?.toLowerCase() === "preparing");
     const readyOrders = orders.filter((o) => o.status?.toLowerCase() === "ready");
@@ -70,8 +65,6 @@ const KitchenDashboard = () => {
     return (
         <Layout>
             <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
-
-                {/* Dynamic Board Header Controls */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-100">
                     <div>
                         <h1 className="text-3xl font-extrabold tracking-tight text-slate-800 flex items-center gap-3">
@@ -83,7 +76,6 @@ const KitchenDashboard = () => {
                         </p>
                     </div>
 
-                    {/* Core Metrics Ribbon Panel */}
                     <div className="flex items-center gap-4 bg-slate-50 border border-slate-100 p-3 rounded-2xl self-start md:self-auto">
                         <div className="px-3 py-1 text-center">
                             <span className="block text-xl font-bold text-amber-600">{pendingOrders.length}</span>
@@ -102,7 +94,6 @@ const KitchenDashboard = () => {
                     </div>
                 </div>
 
-                {/* Board Main Canvas Context */}
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-32 gap-4">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 44, color: '#f97316' }} spin />} />
@@ -120,11 +111,8 @@ const KitchenDashboard = () => {
                         />
                     </div>
                 ) : (
-                    /* Kanban Columns Matrix Container */
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-
-                        {/* 1. PENDING TICKETS COLUMN */}
-                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[500px]">
+                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-125">
                             <div className="flex items-center justify-between border-b border-slate-200/60 pb-3 mb-4">
                                 <div className="flex items-center gap-2">
                                     <ClockCircleOutlined className="text-amber-500 text-lg" />
@@ -141,9 +129,10 @@ const KitchenDashboard = () => {
                                 {pendingOrders.length === 0 && <p className="text-center text-xs text-slate-400 py-12 italic">Clear</p>}
                             </div>
                         </div>
+                        
 
                         {/* 2. PREPARING TICKETS COLUMN */}
-                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[500px]">
+                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-125">
                             <div className="flex items-center justify-between border-b border-slate-200/60 pb-3 mb-4">
                                 <div className="flex items-center gap-2">
                                     <FireOutlined className="text-orange-500 text-lg" />
@@ -159,8 +148,9 @@ const KitchenDashboard = () => {
                             </div>
                         </div>
 
+
                         {/* 3. READY TO SERVE COLUMN */}
-                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[500px]">
+                        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-125">
                             <div className="flex items-center justify-between border-b border-slate-200/60 pb-3 mb-4">
                                 <div className="flex items-center gap-2">
                                     <CheckCircleOutlined className="text-emerald-500 text-lg" />
@@ -180,7 +170,7 @@ const KitchenDashboard = () => {
                 )}
             </div>
 
-            {/* Embedded Animation Scripting Styles for the Fresh Order Lane Pulsing Trigger */}
+
             <style>{`
         @keyframes pulseBorder {
           0%, 100% { border-color: rgba(217, 119, 6, 0.15); }

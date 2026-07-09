@@ -8,18 +8,14 @@ const Register = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
+    
     const onFinish = async (values) => {
         try {
             setLoading(true);
-
             const res = await registerUser(values);
-
             console.log("REGISTER SUCCESS:", res.data);
-
             message.success("Registered successfully");
-
             navigate("/login");
-
         } catch (err) {
             console.log("REGISTER ERROR FRONTEND:", err);
 

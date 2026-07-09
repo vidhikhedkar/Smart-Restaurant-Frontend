@@ -1,10 +1,5 @@
 import { Timeline } from "antd";
-import {
-    ClockCircleOutlined,
-    FireOutlined,
-    CheckCircleOutlined,
-    SmileOutlined,
-} from "@ant-design/icons";
+import {ClockCircleOutlined,FireOutlined,CheckCircleOutlined,SmileOutlined,} from "@ant-design/icons";
 
 const StatusTimeline = ({ status }) => {
     const steps = [

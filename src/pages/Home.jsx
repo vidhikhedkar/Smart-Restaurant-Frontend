@@ -6,12 +6,12 @@ import { FaUtensils, FaMotorcycle, FaClock, FaQrcode, FaCheckCircle, FaStar } fr
 const Home = () => {
     const navigate = useNavigate();
 
-    // Mock data for new components (Replace with real API data later)
     const featuredDishes = [
         { id: 1, name: "Truffle Mushroom Burger", price: "$14.99", tag: "Best Seller", rating: 4.9, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60" },
         { id: 2, name: "Spicy Rigatoni Vodka", price: "$16.50", tag: "Chef Special", rating: 4.8, image: "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=500&auto=format&fit=crop&q=60" },
         { id: 3, name: "Crunchy Avocado Roll", price: "$12.00", tag: "Fresh", rating: 4.7, image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&auto=format&fit=crop&q=60" },
     ];
+
 
     const testimonials = [
         { name: "Sarah M.", role: "Food Blogger", review: "The QR code ordering was seamless! Food arrived roaring hot in less than 15 minutes.", rating: 5 },
@@ -75,6 +75,7 @@ const Home = () => {
                     </div>
                 </div>
 
+
                 {/* 2. Stats Banner Section */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
                     <div>
@@ -94,6 +95,7 @@ const Home = () => {
                         <p className="text-sm text-slate-500 font-medium mt-1">Table Ordering</p>
                     </div>
                 </div>
+
 
                 {/* 3. Core Features Section */}
                 <div className="mt-24">
@@ -128,6 +130,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
 
                 {/* 4. Featured Dishes Section */}
                 <div className="mt-28">
@@ -174,6 +177,7 @@ const Home = () => {
                     </div>
                 </div>
 
+
                 {/* 5. How It Works Section */}
                 <div className="mt-28 bg-slate-100 rounded-3xl p-8 sm:p-12 border border-slate-300">
                     <div className="text-center mb-12">
@@ -208,6 +212,7 @@ const Home = () => {
                     </div>
                 </div>
 
+
                 {/* 6. Testimonials Section */}
                 <div className="mt-28 mb-8">
                     <div className="text-center mb-12">
@@ -235,7 +240,6 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
         </Layout>
     );

@@ -1,10 +1,5 @@
 import { Tag } from "antd";
-import {
-    ClockCircleOutlined,
-    FireOutlined,
-    CheckCircleOutlined,
-    SmileOutlined,
-} from "@ant-design/icons";
+import { ClockCircleOutlined, FireOutlined, CheckCircleOutlined, SmileOutlined, } from "@ant-design/icons";
 
 const OrderStatus = ({ status }) => {
     const statusConfig = {

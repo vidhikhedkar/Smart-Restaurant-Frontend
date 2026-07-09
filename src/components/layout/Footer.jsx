@@ -1,18 +1,9 @@
-import {
-    FaFacebookF,
-    FaInstagram,
-    FaTwitter,
-    FaPhoneAlt,
-    FaEnvelope,
-    FaMapMarkerAlt,
-} from "react-icons/fa";
+import {FaFacebookF,FaInstagram,FaTwitter,FaPhoneAlt,FaEnvelope,FaMapMarkerAlt,} from "react-icons/fa";
 
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-gray-300 mt-12">
             <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-10">
-
-                {/* Restaurant Info */}
                 <div>
                     <h2 className="text-2xl font-bold text-orange-500 mb-4">
                         🍽 Smart Restaurant
@@ -32,7 +23,6 @@ const Footer = () => {
                     </h3>
 
                     <div className="space-y-3 text-sm">
-
                         <p className="flex items-center gap-3">
                             <FaMapMarkerAlt />
                             Ahmedabad, Gujarat
@@ -47,7 +37,6 @@ const Footer = () => {
                             <FaEnvelope />
                             support@smartrestaurant.com
                         </p>
-
                     </div>
                 </div>
 
@@ -58,19 +47,14 @@ const Footer = () => {
                     </h3>
 
                     <div className="flex gap-5 text-2xl">
-
                         <FaFacebookF className="cursor-pointer hover:text-orange-500 transition" />
-
                         <FaInstagram className="cursor-pointer hover:text-orange-500 transition" />
-
                         <FaTwitter className="cursor-pointer hover:text-orange-500 transition" />
-
                     </div>
                 </div>
-
             </div>
 
-            {/* Bottom */}
+
             <div className="border-t border-gray-700 py-5 text-center text-sm">
                 © {new Date().getFullYear()} Smart Restaurant. All Rights Reserved.
             </div>
